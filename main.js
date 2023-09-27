@@ -23,6 +23,7 @@ function start() {
 }
 
 async function entry() {
+  console.log("comincio timbratura entrata");
   let page = await newPage();
   await login(page);
 
@@ -43,6 +44,7 @@ async function entry() {
 }
 
 async function exit() {
+  console.log("comincio timbratura uscita");
   let page = await newPage();
   await login(page);
 

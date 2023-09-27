@@ -27,7 +27,7 @@ docker build -t rambonette/bot-timbratore .
 ## 3 - Run
 
 ```sh
-docker run -d rambonette/bot-timbratore:latest --name bot-timbratore
+docker run -d --name bot-timbratore rambonette/bot-timbratore:latest
 ```
 
 ## 4 - Check logs

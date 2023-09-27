@@ -1,9 +1,12 @@
-FROM node:alpine as production
+FROM node:18
 
-COPY .env .
-COPY main.js .
-COPY package* .
+# Create app directory
+WORKDIR /usr/src/app
+
+COPY package*.json ./
 
 RUN npm install
+
+COPY . .
 
 CMD [ "node", "main.js" ]

@@ -97,12 +97,13 @@ async function openPuppeteer() {
   //1366 768
   var options =
   {
-    headless: false,
+    headless: true,
     args: ['--user-agent=' + normalAgent, '--disable-web-security', '--disable-features=IsolateOrigins,site-per-process', `--window-size=1366,768`, "--disable-notifications"],
-    defaultViewport: { width: 1366, height: 768 }
+    defaultViewport: { width: 1366, height: 768 },
+    executablePath: '/usr/bin/chromium'
   };
 
-  if (process.platform === 'linux' && process.arch === "arm") { options.executablePath = pathPi; } // Raspberry Pi
+  //if (process.platform === 'linux' && process.arch === "arm") { options.executablePath = pathPi; } // Raspberry Pi
 
   browser = await puppeteer.launch(options);
 }

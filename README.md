@@ -16,14 +16,15 @@ Copiare e compilare file `.env`
 cp .env-example .env
 ```
 
-<p>I campi `HOUR` con numero pari rappresentano le uscite, viceversa i dispari le entrate. ex. `HOUR2="13:10"` => uscita alle ore 13:10.</p>
-<p>Il campo `WEEK_DAYS` indica i giorni della settimana nei quali si vuole attivare la timbratura. Si utilizza la convenzione di CRON, quindi `1` rappresenta Lunedì, etc...</p>
-<p>Il campo `TIMEZONE` serve ad indicare il fuso orario. Questo campo accetta i segenti formati di fusi:
+I campi `HOUR` con numero pari rappresentano le uscite, viceversa i dispari le entrate. ex. `HOUR2="13:10"` => uscita alle ore 13:10.
+
+Il campo `WEEK_DAYS` indica i giorni della settimana nei quali si vuole attivare la timbratura. Si utilizza la convenzione di CRON, quindi `1` rappresenta Lunedì, etc...
+
+Il campo `TIMEZONE` serve ad indicare il fuso orario. Questo campo accetta i segenti formati di fusi:
 
 - `IANA`: 'America/New_York'
 - `UTC`: 'utc'
 - `fixed offset`: 'UTC+7'
-</p>
 
 ## 2 - Build immagine docker
 

@@ -29,7 +29,7 @@ Il campo `TIMEZONE` serve ad indicare il fuso orario. Questo campo accetta i seg
 ## 2 - Build immagine docker
 
 ```sh
-docker build -t --rm rambonette/bot-timbratore .
+docker build --rm -t rambonette/bot-timbratore .
 ```
 
 ## 3 - Run

@@ -15,7 +15,10 @@ function start() {
       console.log(`${hoursMinutes[1]} ${hoursMinutes[0]} * * ${day}`);
       let cron = new CronJob(
         `${hoursMinutes[1]} ${hoursMinutes[0]} * * ${day}`,
-        () => { (i + 1) % 2 == 0 ? exit() : entry() }
+        () => { (i + 1) % 2 == 0 ? exit() : entry() },
+        null,
+        false,
+        process.env.TIMEZONE
       );
       cron.start();
     }
@@ -23,7 +26,7 @@ function start() {
 }
 
 async function entry() {
-  console.log("comincio timbratura entrata");
+  console.log("[INFO] starting clocking in");
   let page = await newPage();
   await login(page);
 
@@ -34,7 +37,7 @@ async function entry() {
 
   await frame.waitForSelector('[id$=_label9]');
 
-  console.log("timbrato entrata", new Date());
+  console.log("[INFO] clocking done ", new Date());
   await frame.tap('[id$=_label9]');
 
   await page.close();
@@ -44,7 +47,7 @@ async function entry() {
 }
 
 async function exit() {
-  console.log("comincio timbratura uscita");
+  console.log("[INFO] starting clocking out");
   let page = await newPage();
   await login(page);
 
@@ -55,7 +58,7 @@ async function exit() {
 
   await frame.waitForSelector('[id$=_label10]');
 
-  console.log("timbrato uscita", new Date());
+  console.log("[INFO] clocking done ", new Date());
   await frame.tap('[id$=_label10]');
 
   await page.close();
@@ -64,6 +67,7 @@ async function exit() {
 }
 
 async function login(page) {
+  console.log('[INFO] logging in ...');
   await page.goto(process.env.LOGIN_URL, { waitUntil: 'networkidle0' });
 
   await page.waitForSelector('[id$=_m_cUserName]');
@@ -77,6 +81,7 @@ async function login(page) {
   await page.tap('[id$=_Accedi]');
 
   await page.waitForNavigation();
+  console.log('[INFO] login done!');
 }
 
 async function newPage() {
@@ -99,8 +104,19 @@ async function openPuppeteer() {
   //1366 768
   var options =
   {
-    headless: true,
-    args: ['--user-agent=' + normalAgent, '--disable-web-security', '--disable-features=IsolateOrigins,site-per-process', `--window-size=1366,768`, "--disable-notifications"],
+    headless: "new",
+    args: [
+      `--user-agent=${normalAgent}`,
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-accelerated-2d-canvas',
+      '--disable-gpu',
+      '--disable-web-security',
+      '--disable-features=IsolateOrigins,site-per-process',
+      `--window-size=1366,768`,
+      "--disable-notifications"
+    ],
     defaultViewport: { width: 1366, height: 768 },
     executablePath: '/usr/bin/chromium'
   };
